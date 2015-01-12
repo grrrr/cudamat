@@ -1,15 +1,11 @@
 import os
-import pdb
-import platform
-import warnings
+
 import ctypes as ct
 import numpy as np
-from cudamat import generate_exception
 
-if platform.system() == 'Windows':
-    _cudalearn = ct.cdll.LoadLibrary('libcudalearn.dll')
-else:
-    _cudalearn = ct.cdll.LoadLibrary(os.path.join(os.path.dirname(__file__) or os.path.curdir, 'libcudalearn.so'))
+from cudamat import load_library, generate_exception
+
+_cudalearn = load_library('libcudalearn')
 
 _cudalearn.mult_by_sigmoid_deriv.restype = ct.c_int
 
